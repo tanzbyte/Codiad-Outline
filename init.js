@@ -94,7 +94,7 @@
       loc = content.split(/\r?\n/);
       matches = [];
       editorOutline = [];
-      var keywords = ['public','private','protected'];
+      var keywords = ['public','private','protected','static'];
       var regexClass = /^(\s+|())+class\s(\w+)/ 
       
       for (index = 0; index < loc.length; index++) {
@@ -106,6 +106,7 @@
           for (var keyword in split) {
             if (Function==null) {
               switch (split[keyword]) {
+		case 'static': break;
                 case 'public':
                 case 'private':
                 case 'protected':
@@ -136,6 +137,7 @@
         }
 
       }
+      matches.sort(function(a,b){return a.localeCompare(b)});
       if (matches.length > 0) this.$Outline.empty().append($(matches.join("")));
                          else this.$Outline.empty();
 
